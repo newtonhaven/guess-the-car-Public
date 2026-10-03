@@ -1,0 +1,478 @@
+/* Guess the Car - shared theme on top of Bootstrap 5.3 (dark). */
+
+:root,
+[data-bs-theme="dark"] {
+    --gtc-bg: #0f1729;
+    --gtc-surface: #16213a;
+    --gtc-surface-2: #1c2946;
+    --gtc-border: #2a3a5e;
+    --gtc-ink: #e8ebf2;
+    --gtc-muted: #9aa3b5;
+    --gtc-logo-gray: #8a909e;
+    --gtc-accent: #e0703a;
+    --gtc-accent-hover: #f08450;
+    --gtc-accent-rgb: 224, 112, 58;
+    --gtc-green: #acbf80;
+    --gtc-red: #f26b6b;
+
+    --bs-body-bg: var(--gtc-bg);
+    --bs-body-color: var(--gtc-ink);
+    --bs-secondary-color: var(--gtc-muted);
+    --bs-tertiary-bg: var(--gtc-surface);
+    --bs-border-color: var(--gtc-border);
+    --bs-primary: var(--gtc-accent);
+    --bs-primary-rgb: var(--gtc-accent-rgb);
+    --bs-link-color: #f3a57c;
+    --bs-link-color-rgb: 243, 165, 124;
+    --bs-link-hover-color: #ffc3a3;
+    --bs-link-hover-color-rgb: 255, 195, 163;
+    --bs-body-font-family: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --bs-border-radius: .6rem;
+    --bs-border-radius-lg: .9rem;
+    --bs-card-bg: var(--gtc-surface);
+}
+
+/* Dream Car Finder keeps its own blue accent inside the shared frontend. */
+.section-dreamcar {
+    --gtc-accent: #1f9be6;
+    --gtc-accent-hover: #43b0f2;
+    --gtc-accent-rgb: 31, 155, 230;
+    --bs-primary: var(--gtc-accent);
+    --bs-primary-rgb: var(--gtc-accent-rgb);
+    --bs-link-color: #7cc7f5;
+    --bs-link-color-rgb: 124, 199, 245;
+    --bs-link-hover-color: #a8dafa;
+}
+
+html { scroll-padding-top: 5rem; }
+
+body {
+    background: var(--gtc-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .display-font {
+    font-family: "Barlow Condensed", "Barlow", sans-serif;
+    font-weight: 700;
+    letter-spacing: .01em;
+}
+
+.text-accent { color: var(--gtc-accent) !important; }
+.bg-surface { background: var(--gtc-surface) !important; }
+
+/* Buttons */
+.btn-primary {
+    --bs-btn-bg: var(--gtc-accent);
+    --bs-btn-border-color: var(--gtc-accent);
+    --bs-btn-hover-bg: var(--gtc-accent-hover);
+    --bs-btn-hover-border-color: var(--gtc-accent-hover);
+    --bs-btn-active-bg: var(--gtc-accent);
+    --bs-btn-active-border-color: var(--gtc-accent);
+    --bs-btn-disabled-bg: var(--gtc-accent);
+    --bs-btn-disabled-border-color: var(--gtc-accent);
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;
+    font-weight: 600;
+}
+.btn-outline-primary {
+    --bs-btn-color: var(--gtc-accent);
+    --bs-btn-border-color: var(--gtc-accent);
+    --bs-btn-hover-bg: var(--gtc-accent);
+    --bs-btn-hover-border-color: var(--gtc-accent);
+    --bs-btn-active-bg: var(--gtc-accent);
+    --bs-btn-active-border-color: var(--gtc-accent);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;
+    font-weight: 600;
+}
+.form-control:focus, .form-select:focus, .btn:focus-visible {
+    border-color: var(--gtc-accent);
+    box-shadow: 0 0 0 .2rem rgba(var(--gtc-accent-rgb), .3);
+}
+.form-control, .form-select { background-color: var(--gtc-surface-2); }
+
+/* Navbar */
+.site-nav {
+    background: rgba(15, 23, 41, .92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gtc-border);
+}
+.site-nav .navbar-brand img { height: auto; max-width: 42vw; }
+.site-nav .nav-link { font-weight: 500; color: var(--gtc-muted); border-radius: .5rem; padding-inline: .75rem !important; }
+.site-nav .nav-link:hover { color: var(--gtc-ink); }
+.site-nav .nav-link.active { color: #fff; background: rgba(var(--gtc-accent-rgb), .18); }
+.site-nav .dropdown-menu { background: var(--gtc-surface); border-color: var(--gtc-border); }
+@media (max-width: 991.98px) {
+    .site-nav .navbar-nav { padding: .5rem 0 .75rem; }
+    .site-nav .nav-link { padding-block: .6rem !important; }
+}
+
+/* ---------- Traffic emoji strip (kept from the original site) ---------- */
+.traffic-strip {
+    position: relative;
+    overflow: hidden;
+    background: var(--gtc-bg);
+    padding-top: .4rem;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255, 255, 255, .04);
+    user-select: none;
+}
+.traffic-strip .light {
+    max-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.traffic-strip .light .flame {
+    animation-name: flame;
+    animation-delay: 18.4s;
+    animation-duration: 1.5s;
+    animation-iteration-count: 30;
+    display: inline-block;
+}
+.traffic-strip .lane { position: relative; height: 2rem; }
+.traffic-strip .emoji {
+    position: absolute;
+    animation: moveLeft 25s linear infinite;
+    animation-iteration-count: 1;
+}
+.traffic-strip .emoji3 { animation: moveLeft 25s linear infinite; animation-delay: 1s; animation-iteration-count: 1; }
+.traffic-strip .emoji4 { animation: moveLeft 25s linear infinite; animation-delay: 4s; animation-iteration-count: 1; }
+.traffic-strip .emoji5 { animation: moveLeft 20s linear infinite; animation-delay: 10s; animation-iteration-count: 1; }
+.traffic-strip .emoji6 { animation: moveLeft 19s linear infinite; animation-delay: 15s; animation-iteration-count: 1; }
+.traffic-strip .emoji2 {
+    position: absolute;
+    animation-name: moveRight;
+    animation-duration: 10s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+}
+.traffic-strip .emoji666 {
+    left: 0;
+    top: 0;
+    width: 2.2rem;
+    height: 2rem;
+    background-color: var(--gtc-bg);
+    animation: none;
+    z-index: 50;
+}
+@keyframes moveLeft { 0% { right: 0; } 100% { right: 100%; } }
+@keyframes moveRight { 0% { left: 0; } 100% { left: 35%; } }
+@keyframes flame { 0% { transform: scaleY(1); } 50% { transform: scaleY(1.2); } 100% { transform: scaleY(1); } }
+
+/* ---------- Generic blocks ---------- */
+.page-head { padding: 2rem 0 1.25rem; }
+.page-head h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: .25rem; }
+.page-head .lead { color: var(--gtc-muted); font-size: 1.1rem; }
+
+.card {
+    --bs-card-bg: var(--gtc-surface);
+    --bs-card-border-color: var(--gtc-border);
+}
+.card-hover { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.card-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgba(var(--gtc-accent-rgb), .6);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, .35);
+}
+.stretched-link:focus-visible { outline: none; }
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .25rem .7rem;
+    border-radius: 999px;
+    font-size: .85rem;
+    background: var(--gtc-surface-2);
+    border: 1px solid var(--gtc-border);
+    color: var(--gtc-ink);
+}
+
+/* ---------- Hub ---------- */
+.hero {
+    position: relative;
+    padding: 3rem 0 2rem;
+    text-align: center;
+}
+.hero-logo { width: min(560px, 88vw); height: auto; }
+.hero .tagline { color: var(--gtc-muted); font-size: 1.15rem; margin-top: 1rem; }
+
+.game-card { overflow: hidden; }
+.game-card .card-art {
+    height: 150px;
+    display: grid;
+    place-items: center;
+    font-size: 4.2rem;
+    position: relative;
+    background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, .12), transparent 55%), var(--art, linear-gradient(135deg, #2a3a5e, #16213a));
+}
+.game-card.feature .card-art { height: 210px; font-size: 5.5rem; }
+.game-card .card-art .badge { position: absolute; top: .8rem; right: .8rem; font-size: .75rem; letter-spacing: .04em; }
+.game-card h2, .game-card h3 { margin-bottom: .35rem; }
+.game-card .card-text { color: var(--gtc-muted); }
+.art-orange { --art: linear-gradient(135deg, #e0703a 0%, #8c3a1c 100%); }
+.art-purple { --art: linear-gradient(135deg, #7b5cff 0%, #3a2a8c 100%); }
+.art-blue { --art: linear-gradient(135deg, #1f9be6 0%, #0d3d66 100%); }
+.art-green { --art: linear-gradient(135deg, #6f9a3a 0%, #2f4a1e 100%); }
+.art-slate { --art: linear-gradient(135deg, #4b5a78 0%, #1c2946 100%); }
+.art-sky { --art: url("../../Dreamcar/site/bg.webp") center / 260px repeat; }
+
+.feautre-cover img { width: 100%; height: auto; display: block; }
+
+/* ---------- Guess the Car: day grid ---------- */
+.day-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    gap: .75rem;
+}
+@media (max-width: 575.98px) {
+    .day-grid { grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+}
+.day-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .15rem;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--bs-border-radius-lg);
+    background: var(--gtc-surface);
+    border: 1px solid var(--gtc-border);
+    color: var(--gtc-ink);
+    text-decoration: none;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.day-tile:hover { transform: translateY(-3px); border-color: var(--gtc-accent); color: #fff; background: var(--gtc-surface-2); }
+.day-tile .day-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--gtc-muted); }
+.day-tile .day-num { font-family: "Barlow Condensed", sans-serif; font-size: 2.1rem; font-weight: 700; line-height: 1; }
+.day-tile .day-status { font-size: 1.1rem; line-height: 1; }
+.day-tile.is-won { border-color: rgba(172, 191, 128, .7); }
+.day-tile.is-lost { border-color: rgba(242, 107, 107, .6); }
+.day-tile.is-latest { box-shadow: 0 0 0 2px rgba(var(--gtc-accent-rgb), .55); }
+
+/* ---------- Guess the Car: game ---------- */
+.hint-stage {
+    background: #0a101e;
+    border: 1px solid var(--gtc-border);
+    border-radius: var(--bs-border-radius-lg);
+    min-height: 220px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+.hint-stage img { max-width: 100%; max-height: 60vh; width: auto; height: auto; display: block; }
+.hint-btn { min-width: 3rem; }
+.hint-btn:disabled { opacity: .45; }
+.guess-dots { display: flex; gap: .4rem; }
+.guess-dots span {
+    width: .85rem; height: .85rem; border-radius: 50%;
+    background: var(--gtc-surface-2); border: 1px solid var(--gtc-border);
+}
+.guess-dots span.used { background: var(--gtc-red); border-color: var(--gtc-red); }
+.guess-dots span.win { background: var(--gtc-green); border-color: var(--gtc-green); }
+.wrong-list li { color: var(--gtc-red); }
+.result-banner.win { border-color: rgba(172, 191, 128, .7) !important; }
+.result-banner.lose { border-color: rgba(242, 107, 107, .6) !important; }
+
+/* Autocomplete */
+.ac-wrap { position: relative; flex: 1 1 auto; }
+.ac-list {
+    position: absolute;
+    z-index: 1050;
+    left: 0; right: 0; top: calc(100% + 4px);
+    max-height: 260px;
+    overflow-y: auto;
+    background: var(--gtc-surface);
+    border: 1px solid var(--gtc-border);
+    border-radius: var(--bs-border-radius);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .4);
+    padding: .25rem;
+    display: none;
+}
+.ac-list.show { display: block; }
+.ac-item {
+    display: block; width: 100%; text-align: left;
+    padding: .5rem .75rem; border: 0; border-radius: .4rem;
+    background: transparent; color: var(--gtc-ink);
+}
+.ac-item:hover, .ac-item.active { background: rgba(var(--gtc-accent-rgb), .2); }
+
+/* ---------- One Shot ---------- */
+.oneshot-stage {
+    position: relative;
+    background: #0a101e;
+    border: 1px solid var(--gtc-border);
+    border-radius: var(--bs-border-radius-lg);
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+}
+.oneshot-stage img { width: 100%; height: 100%; object-fit: contain; }
+.oneshot-stage .loading { color: var(--gtc-muted); }
+.oneshot-stage > .compare { position: absolute; inset: 0; aspect-ratio: auto; border: 0; border-radius: 0; }
+.hint-text { border-left: 3px solid var(--gtc-accent); padding-left: .6rem; }
+
+/* ---------- Before / after slider (test mule -> real car), see GTC.compare in app.js ---------- */
+.compare {
+    --pos: 50%;
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: #0a101e;
+    overflow: hidden;
+    user-select: none;
+    touch-action: pan-y;
+}
+.compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.compare .compare-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); background: #0a101e; }
+.compare .compare-line {
+    position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px;
+    background: #fff; box-shadow: 0 0 6px rgba(0, 0, 0, .6); pointer-events: none;
+}
+.compare .compare-line::after {
+    content: "\2194"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--gtc-accent); color: #fff; font-weight: 700; box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
+}
+.compare input[type="range"] {
+    position: absolute; inset: 0; width: 100%; height: 100%; margin: 0;
+    opacity: 0; cursor: ew-resize; -webkit-appearance: none; appearance: none;
+}
+.compare input[type="range"]:focus-visible + .compare-line::after { outline: 3px solid #fff; outline-offset: 2px; }
+.compare .compare-label {
+    position: absolute; bottom: .6rem; padding: .15rem .55rem; border-radius: 999px;
+    background: rgba(10, 16, 30, .75); color: #fff; font-size: .75rem; letter-spacing: .05em; text-transform: uppercase;
+    pointer-events: none;
+}
+.compare .compare-label.before { left: .6rem; }
+.compare .compare-label.after { right: .6rem; }
+.stat-tile { text-align: center; }
+.stat-tile .value { font-family: "Barlow Condensed", sans-serif; font-size: 1.9rem; font-weight: 700; line-height: 1.1; }
+.stat-tile .label { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--gtc-muted); }
+
+/* ---------- Database ---------- */
+.db-tabs .nav-link { white-space: nowrap; color: var(--gtc-muted); }
+.db-tabs .nav-link.active { background: var(--gtc-accent); color: #fff; }
+.thumb {
+    aspect-ratio: 16 / 10;
+    background: var(--gtc-surface-2) center / cover no-repeat;
+    border-bottom: 1px solid var(--gtc-border);
+    display: grid;
+    place-items: center;
+    color: var(--gtc-muted);
+    font-size: 2rem;
+}
+.thumb.loaded > i { display: none; }
+.spec-list { display: grid; grid-template-columns: auto 1fr; gap: .15rem .9rem; font-size: .9rem; margin: 0; }
+.spec-list dt { color: var(--gtc-muted); font-weight: 500; }
+.spec-list dd { margin: 0; }
+.timeline-year {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gtc-accent);
+}
+
+.tree-card .brand-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.tree-card .chip.stake { border-style: dashed; color: var(--gtc-muted); }
+.tree-card .chip.former { opacity: .6; text-decoration: line-through; text-decoration-color: rgba(255, 255, 255, .35); }
+.tree-card .chip.match { background: rgba(var(--gtc-accent-rgb), .25); border-color: var(--gtc-accent); color: #fff; }
+.tree-root {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: "Barlow Condensed", sans-serif; font-size: 1.35rem; font-weight: 700;
+}
+.tree-branch { border-left: 2px solid var(--gtc-border); margin-left: .6rem; padding-left: 1rem; }
+.tree-branch + .tree-branch { margin-top: .75rem; }
+.tree-branch-title { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--gtc-muted); margin-bottom: .4rem; }
+
+.chart-box { position: relative; height: 380px; }
+.chart-box.tall { height: 460px; }
+@media (max-width: 575.98px) {
+    .chart-box { height: 320px; }
+    .chart-box.tall { height: 420px; }
+}
+
+/* ---------- News ---------- */
+.news-card .news-img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    width: 100%;
+    background: var(--gtc-surface-2);
+}
+.news-card .card-title a { color: var(--gtc-ink); text-decoration: none; }
+.news-card .card-title a:hover { color: var(--gtc-accent); }
+.news-feature .news-img { aspect-ratio: auto; height: 100%; min-height: 240px; }
+.news-mini a { color: var(--gtc-ink); text-decoration: none; }
+.news-mini a:hover { color: var(--gtc-accent); }
+.news-mini li + li { border-top: 1px solid var(--gtc-border); }
+.line-clamp-2, .line-clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+.line-clamp-2 { -webkit-line-clamp: 2; }
+.line-clamp-3 { -webkit-line-clamp: 3; }
+
+/* ---------- Dream Car Finder ---------- */
+.dc-hero {
+    background: url("../../Dreamcar/site/bg.webp") center / 320px repeat;
+    border-radius: var(--bs-border-radius-lg);
+    padding: 2rem 1rem;
+    text-align: center;
+    color: #0d3d66;
+}
+.dc-hero img { width: min(420px, 80vw); height: auto; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .2)); }
+.dc-hero .subtitle {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: .4rem 1.2rem;
+    border-radius: 999px;
+    background: rgba(13, 61, 102, .85);
+    color: #fff;
+    font-weight: 500;
+}
+.dc-result img { max-width: 100%; height: auto; border-radius: var(--bs-border-radius-lg); }
+.dc-result .car-name { font-family: "Barlow Condensed", sans-serif; font-size: 1.8rem; font-weight: 700; }
+.wheel-img {
+    width: min(440px, 82vw);
+    height: auto;
+    transition: transform 4s cubic-bezier(.25, .1, .25, 1);
+}
+.wheel-pointer { font-size: 2rem; line-height: 1; color: var(--gtc-red); }
+.fade-in { animation: fadeIn .45s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Footer & misc ---------- */
+.site-footer { background: #0b1222; border-top: 1px solid var(--gtc-border); }
+.site-footer a { color: var(--gtc-muted); text-decoration: none; }
+.site-footer a:hover { color: var(--gtc-ink); }
+
+.to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    width: 3rem;
+    height: 3rem;
+    z-index: 1030;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity .2s ease, transform .2s ease;
+}
+.to-top.show { opacity: 1; pointer-events: auto; transform: none; }
+
+.confetti-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1080;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card-hover:hover, .day-tile:hover { transform: none; }
+    .wheel-img { transition-duration: 1s; }
+}

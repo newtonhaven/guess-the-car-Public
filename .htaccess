@@ -1,0 +1,26 @@
+Options -Indexes
+RewriteEngine On
+
+# Force HTTPS (or use the host's "Force HTTPS" toggle)
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Block .git, .ddev and any dotfile (keeps /.well-known working), plus dev folders
+RewriteRule (^|/)\.(?!well-known/) - [F]
+RewriteRule ^(dev|inc)(/|$) - [F]
+
+<FilesMatch "\.(log|sql|py|ya?ml|md|lock|tmp|bak)$">
+    Require all denied
+</FilesMatch>
+
+# Old Dream Car Finder links (.html → .php; the fake ad page is now shtbox.php)
+RewriteRule ^Dreamcar/fakead\.(html|php)$ /Dreamcar/shtbox.php [R=301,L]
+RewriteRule ^Dreamcar/(index|config|cat2car|wheel)\.html$ /Dreamcar/$1.php [R=301,L]
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Once HTTPS works everywhere:
+    # Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>

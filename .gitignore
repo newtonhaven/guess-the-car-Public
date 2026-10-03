@@ -1,0 +1,23 @@
+.env
+*.sql
+*.sql.gz
+*.log
+logs/
+
+# --- Files the site writes while it runs ---
+news/news_data.json
+news/.refresh.lock
+news/*.tmp
+
+# --- Local development ---
+.ddev/
+dev/
+node_modules/
+
+# --- OS / editor clutter ---
+*:Zone.Identifier
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
